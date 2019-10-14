@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Map";
+}
+
+@using (Html.BeginForm("Search", "Map", FormMethod.Post))
+{
+    <label for="searchTerm">Search for map item by key name</label>
+    <input type="text" name="searchTerm" placeholder="Enter a key name" />
+
+    <button type="submit">Search map</button>
+}
+
+@using (Html.BeginForm("AddToMap", "Map", FormMethod.Post))
+{
+
+    <input type="text" placeholder="Enter a key" name="key" />
+    <input type="text" name="value" placeholder="Enter a value" />
+
+    <button type="submit">Add to Map</button>
+}
+
+@using (Html.BeginForm("EraseAll", "Map", FormMethod.Post))
+{
+    <button type="submit">Delete All</button>
+}
+
+@using (Html.BeginForm("AddMany", "Map", FormMethod.Post))
+{
+    <button type="submit">Generate New Data</button>
+}
+@if (ViewBag.StopWatchMessage != null)
+{
+    <h3>@ViewBag.StopWatchMessage</h3>
+}
+
+<ol>
+    @foreach (KeyValuePair<string, string> entry in ViewBag.myMap)
+    {
+        <a href="@Url.Action("EraseOne", "Map", new { key = @entry.Key })" class="w3-bar-item w3-button">
+            Key: @entry.Key<br />
+            Value: @entry.Value
+        </a>
+        <br />
+        <br />
+
+
+    }
+</ol>
+
+
+<h2>Map</h2>
+
